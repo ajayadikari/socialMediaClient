@@ -16,7 +16,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { toast } from "react-toastify";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
@@ -26,6 +27,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
+  const axiosInstance = useCreateAxiosInstance()
 
   const submitHandler = async (e) => {
     e.preventDefault();

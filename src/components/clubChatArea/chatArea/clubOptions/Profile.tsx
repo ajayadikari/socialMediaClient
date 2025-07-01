@@ -7,8 +7,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Profile = ({
   profile,
@@ -18,6 +19,7 @@ const Profile = ({
   requestTab: boolean;
 }) => {
   const curr_user_id = localStorage.getItem("userId");
+  const axiosInstance = useCreateAxiosInstance()
   const acceptReqHandler = async () => {
     const res = await axiosInstance({
       method: "patch",

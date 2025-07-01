@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Message from "../message";
 import MessageInput from "../messageInput";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { useContext } from "react";
 import { FriendChatContext } from "@/context/friendsChat";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Index = ({ws}) => {
   const lastMsg = useRef<HTMLDivElement | null>(null);
   const messagesState = useContext(FriendChatContext);
+  const axiosInstance = useCreateAxiosInstance()
 
   const fetchMessages = async () => {
     const res = await axiosInstance({

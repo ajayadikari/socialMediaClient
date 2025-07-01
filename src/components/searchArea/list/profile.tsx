@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 import { SearchContext } from "@/context/search";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Profile = ({
   username,
@@ -14,6 +15,7 @@ const Profile = ({
   id: number;
 }) => {
   const SearchState = useContext(SearchContext);
+  const axiosInstance = useCreateAxiosInstance()
   const requestHandler = async () => {
     const url = SearchState?.learner ? `api/friend-request/send-friend-request/${SearchState?.selectedUser}/` : `api/club/send-join-request/${id}/`
     const res = await axiosInstance({

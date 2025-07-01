@@ -2,10 +2,12 @@ import React from "react";
 import { Check } from "lucide-react";
 import { ProfileInt } from "./index";
 import Image from "next/image";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Profile = ({ profile }: { profile: ProfileInt }) => {
+  const axiosInstance = useCreateAxiosInstance()
   const acceptRequest = async () => {
     const res = await axiosInstance({
       method: "post",

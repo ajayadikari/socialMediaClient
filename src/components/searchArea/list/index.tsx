@@ -3,7 +3,8 @@
 import React from "react";
 import Profile from "./profile";
 import Image from "next/image";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 import { useEffect, useState, useContext } from "react";
 import { SearchContext } from "@/context/search";
 
@@ -25,6 +26,7 @@ const Index = () => {
   const [clubList, setClubList] = useState<Club[]>([]);
   const searchState = useContext(SearchContext);
   const curr_user_id = localStorage.getItem("userId");
+  const axiosInstance = useCreateAxiosInstance()
 
   useEffect(() => {
     const fetchUsers = async () => {

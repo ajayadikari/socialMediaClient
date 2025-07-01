@@ -4,8 +4,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import ClubProfile from "../clubProfile";
 import { ClubContext } from "@/context/club";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 export interface Club {
   name: string;
@@ -20,6 +21,7 @@ export interface Club {
 const Index = () => {
   const ClubState = useContext(ClubContext);
   const [clubs, setClubs] = useState<Club[]>();
+  const axiosInstance = useCreateAxiosInstance()
   useEffect(() => {
     const fetch = async () => {
       try {

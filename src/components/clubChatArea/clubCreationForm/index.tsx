@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { ClubContext } from "@/context/club";
 import cn from "@/utils/cn";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Index = () => {
   const ClubState = useContext(ClubContext);
   const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
+  const axiosInstance = useCreateAxiosInstance()
   //img handling - club profile pic
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import LearnerDetails from "./LearnerDetails";
 import LearnerEducation from "./LearnerEducation";
 import LearnerExperience from "./LearnerExperience";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 export interface PersonalDetailsInterface {
   id: number, 
@@ -39,6 +40,7 @@ export interface UserDataInterface {
 }
 
 const LearnerDetailsGrid = ({ userId }: { userId: string | number }) => {
+  const axiosInstance = useCreateAxiosInstance()
   const [userData, setUserData] = useState<UserDataInterface | null>(null)
   useEffect(() => {
     const fetch = async () => {

@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { PersonalDetailsInterface } from "./learnerDetailsGrid";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 
 const LearnerDetails = ({
@@ -9,6 +10,7 @@ const LearnerDetails = ({
 }: {
   data: PersonalDetailsInterface | null | undefined;
 }) => {
+  const axiosInstance = useCreateAxiosInstance()
   const sendFriendReq = async () => {
     try {
       const res = await axiosInstance({

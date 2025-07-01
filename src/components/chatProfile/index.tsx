@@ -3,10 +3,13 @@ import Image from "next/image";
 import { useContext } from "react";
 import { FriendChatContext } from "@/context/friendsChat";
 import { Profile } from "../chatList";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const Index = ({ profile }: { profile: Profile }) => {
   const FriendChatState = useContext(FriendChatContext);
+  const axiosInstance = useCreateAxiosInstance()
+  
   const fetchCn = async () => {
     const res = await axiosInstance(
       `/api/account/get-channel-name/${FriendChatState?.selectedFriend}`

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Radio } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Profile from "./Profile";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import cn from "@/utils/cn";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 export interface ProfileInt {
   username: string;
@@ -18,6 +19,7 @@ export interface ProfileInt {
 const Index = () => {
   const [requestList, setRequestList] = useState<ProfileInt[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const axiosInstance = useCreateAxiosInstance()
   const SetFriendRequests = async () => {
     const res = await axiosInstance({
       method: "GET",

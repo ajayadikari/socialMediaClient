@@ -2,14 +2,16 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import Profile from "./Profile";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { ClubContext } from "@/context/club";
 import { ProfileInt } from ".";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 const RequestList = () => {
   const clubState = useContext(ClubContext);
   const [requestList, setRequestList] = useState<ProfileInt[]>([]);
+  const axiosInstance = useCreateAxiosInstance()
   useEffect(() => {
     const fetch = async () => {
       try {

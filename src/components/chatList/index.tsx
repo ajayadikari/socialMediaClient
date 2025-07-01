@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import ChatProfile from "@/components/chatProfile";
 import Image from "next/image";
-import axiosInstance from "@/utils/axiosInstance";
+// import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
+import useCreateAxiosInstance from "@/utils/axiosInstance";
 
 export interface Profile {
   name: string;
@@ -15,6 +16,7 @@ export interface Profile {
 
 const Index = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const axiosInstance = useCreateAxiosInstance()
 
   const getFriends = async () => {
     try {
