@@ -8,17 +8,23 @@ import { useContext } from "react";
 import { FriendChatContext } from "@/context/friendsChat";
 import useCreateAxiosInstance from "@/utils/axiosInstance";
 
-const Index = ({ws}) => {
+const Index = ({ ws }) => {
   const lastMsg = useRef<HTMLDivElement | null>(null);
   const messagesState = useContext(FriendChatContext);
-  const axiosInstance = useCreateAxiosInstance()
+  const axiosInstance = useCreateAxiosInstance();
 
   const fetchMessages = async () => {
-    const res = await axiosInstance({
-      method: "GET",
-      url: `api/message/get-conversation/${messagesState?.selectedFriend}`,
-    });
-    messagesState?.setMessages(res.data.data);
+    try {
+      if (messagesState?.selectedFriend !== null) {
+        const res = await axiosInstance({
+          method: "GET",
+          url: `api/message/get-conversation/${messagesState?.selectedFriend}`,
+        });
+        messagesState?.setMessages(res.data.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {

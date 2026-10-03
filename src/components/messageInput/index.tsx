@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FriendChatContext } from "@/context/friendsChat";
 // import axiosInstance from "@/utils/axiosInstance";
 import useCreateAxiosInstance from "@/utils/axiosInstance";
@@ -17,10 +17,16 @@ const Index = ({ ws }) => {
   const MessageState = useContext(FriendChatContext);
   const [message, setMessage] = useState<string>("");
   const FriendChatState = useContext(FriendChatContext);
-  const userId = localStorage.getItem("userId");
   const [file, setFile] = useState<null | File>(null);
   const axiosInstance = useCreateAxiosInstance();
   const [filePreview, setFilePreview] = useState<string>();
+
+  const [userId, setUserId] = useState<number | null | string>(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+  }, []);
 
   const pushMsg = async () => {
     if (!message.trim()) return;
@@ -29,7 +35,7 @@ const Index = ({ ws }) => {
       MessageState?.selectedFriend === null ||
       MessageState?.selectedFriend === undefined
     ) {
-      toast.error("something went wrong");
+      toast.error("please logout and login, userId is null");
       return;
     }
     const now = new Date();
@@ -43,6 +49,7 @@ const Index = ({ ws }) => {
       file: null,
       id: -1,
     };
+    console.log(data);
     MessageState?.setMessages((prev) => [...prev, data]);
     const msg = {
       receiverId: MessageState?.selectedFriend,
@@ -63,7 +70,6 @@ const Index = ({ ws }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(res);
     } catch (error) {
       toast.error("Failed to save message");
       console.log(error);
@@ -74,10 +80,12 @@ const Index = ({ ws }) => {
     if (!message.trim()) return;
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(
-        JSON.stringify({ message, cn: FriendChatState?.receiverCn })
+        JSON.stringify({
+          message,
+          receiver_id: MessageState?.selectedFriend,
+        }),
       );
       setMessage("");
-      pushMsg();
     } else {
       toast.error("WebSocket is not connected");
     }

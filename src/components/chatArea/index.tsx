@@ -12,21 +12,6 @@ const Index = () => {
   const [myId, setMyId] = useState<string | null>(null);
   const FriendChatState = useContext(FriendChatContext);
 
-  const pushMsg = (msg) => {
-    const now = new Date();
-    const data: MessageInt = {
-      sender: FriendChatState?.selectedFriend,
-      receiver: +myId,
-      message: msg,
-      created_at: now + "",
-      club: null,
-      image: null,
-      file: null,
-      id: -1,
-    };
-    FriendChatState?.setMessages((prev) => [...prev, data]);
-  };
-
   useEffect(() => {
     const id = localStorage.getItem("userId");
     if (id) setMyId(id);
@@ -42,12 +27,31 @@ const Index = () => {
       toast.success("conneted");
     };
 
+    const pushMsg = (msg: string) => {
+      const now = new Date();
+      const data: MessageInt = {
+        sender: FriendChatState?.selectedFriend,
+        receiver: +myId,
+        message: msg,
+        created_at: now + "",
+        club: null,
+        image: null,
+        file: null,
+        id: -1,
+      };
+      console.log(`data received: ${data}`);
+      FriendChatState?.setMessages((prev) => [...prev, data]);
+    };
+
     socket.onmessage = (event) => {
       try {
-        const msg = JSON.parse(event.data);
-        console.log(msg);
-        console.log(FriendChatState?.selectedFriend);
-        pushMsg(msg);
+        if (event) {
+          const dataObj = JSON.parse(event.data);
+          pushMsg(dataObj.message.message);
+        } else {
+          console.log("failed to send message");
+          console.log("event object from backend", event);
+        }
       } catch (err) {
         console.log(err);
         toast.error("something went wrong");
