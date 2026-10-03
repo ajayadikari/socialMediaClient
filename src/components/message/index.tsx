@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import cn from "@/utils/cn";
 
 const Index = ({ message }) => {
-  console.log(message);
+  const [curr_user, setCurrUser] = useState<string | null>(null);
   const setUser = async () => {
     const curr_user = await localStorage.getItem("userId");
     setCurrUser(curr_user);
@@ -14,14 +14,12 @@ const Index = ({ message }) => {
     setUser();
   }, []);
 
-  const [curr_user, setCurrUser] = useState<string | null>(null);
-
   return (
     <div className={cn("w-full p-1 grid cursor-pointer")}>
       <div
         className={cn(
           "max-w-[700px] w-fit min-w-[200px] bg-gray-100 px-1 rounded-sm",
-          curr_user == message.sender && "justify-self-end"
+          curr_user == message.sender && "justify-self-end",
         )}
       >
         {/* <Image src={`${server}${message.file}`} className="h-[200px] w-[200px]"} alt={"image"}></Image> */}

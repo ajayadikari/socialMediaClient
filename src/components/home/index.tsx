@@ -2,7 +2,7 @@ import React from "react";
 import Left from "./components/Left";
 import Right from "./components/Right";
 
-const index = () => {
+const Index = () => {
   return (
     <div className="grid grid-cols-6 h-full border-t-2 border-gray-200">
       <div className="col-start-1 col-end-1 border-r-2 border-gray-200">
@@ -15,4 +15,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
