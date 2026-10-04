@@ -7,6 +7,8 @@ export interface ChatInt {
   sender: number | string | null;
   image: File | null;
   file: File | null;
+  created_at: Date;
+  club: number | string | null;
 }
 
 export interface ClubContextInt {

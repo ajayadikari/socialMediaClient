@@ -5,8 +5,9 @@ import MessageArea from "./messagesArea";
 import ChatAreaOptions from "./chatAreaOptions";
 import useCreateAxiosInstance from "@/utils/axiosInstance";
 import { ClubContext, ClubContextInt, ChatInt } from "@/context/club";
+import { toast } from "react-toastify";
 
-const Index = () => {
+const Index = ({ ws }) => {
   const [message, setMessage] = useState<string>("");
 
   const axiosInstance = useCreateAxiosInstance();
@@ -18,12 +19,28 @@ const Index = () => {
     setCurrUserId(userId);
   }, []);
 
+  const sendMsg = () => {
+    if (ws.current?.readyState === WebSocket.OPEN) {
+      ws.current.send(JSON.stringify({ message: message }));
+    } else {
+      toast.error("WebSocket is not open");
+    }
+  };
+
   const sendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
 
     e.preventDefault();
 
+    try {
+      sendMsg();
+    } catch (e) {
+      toast.error("error in sending data in websocket");
+      console.log(e);
+    }
+
     const currentMessage = e.currentTarget.value.trim();
+    console.log(currentMessage);
 
     if (!currentMessage) return;
 

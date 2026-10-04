@@ -6,7 +6,6 @@ import SyllabusArea from "./syllabusArea";
 import { ClubContext } from "@/context/club";
 import { toast } from "react-toastify";
 
-
 const Index = () => {
   const ClubState = useContext(ClubContext);
   const ws = useRef<WebSocket | null>(null);
@@ -18,9 +17,7 @@ const Index = () => {
       return;
 
     const club_name = ClubState?.selectedClubName.replaceAll(" ", "-");
-    const socket = new WebSocket(
-      `ws://localhost:8000/club-chat/${club_name}/`
-    );
+    const socket = new WebSocket(`ws://localhost:8000/club-chat/${club_name}/`);
     ws.current = socket;
 
     socket.onopen = () => {
@@ -51,14 +48,6 @@ const Index = () => {
     };
   }, [ClubState?.selectedClubName]);
 
-  const sendMsg = () => {
-    if (ws.current?.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify({ message: "message" }));
-    } else {
-      toast.error("WebSocket is not open");
-    }
-  };
-
   return (
     <div className="h-[calc(100vh-58px)] overflow-y-auto">
       {ClubState?.selectedClubId === null ? (
@@ -70,7 +59,7 @@ const Index = () => {
             <SyllabusArea />
           </div>
           <div className="h-full relative">
-            <ChatArea />
+            <ChatArea ws={ws} />
           </div>
         </>
       )}
