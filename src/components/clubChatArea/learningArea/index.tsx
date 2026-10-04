@@ -3,8 +3,7 @@
 import React, { useContext, useRef, useEffect } from "react";
 import ChatArea from "../chatArea";
 import SyllabusArea from "./syllabusArea";
-import { ClubContext } from "@/context/club";
-import { toast } from "react-toastify";
+import { ClubContext, ChatInt } from "@/context/club";
 
 const Index = () => {
   const ClubState = useContext(ClubContext);
@@ -26,9 +25,17 @@ const Index = () => {
 
     socket.onmessage = (event) => {
       try {
+        console.log(JSON.stringify(event.data));
         const data = JSON.parse(event.data);
-        console.log("Message received:", data);
-        toast.success("Message received");
+        const msgObj: ChatInt = {
+          message: data.message,
+          sender: null,
+          created_at: Date.now() + "",
+          club: ClubState?.selectedClubId + "",
+          file: data.file,
+          image: data.image,
+        };
+        ClubState?.setChat((prev) => [...(prev ?? []), msgObj]);
       } catch (err) {
         console.warn("Non-JSON message:", event.data);
         console.log(err);

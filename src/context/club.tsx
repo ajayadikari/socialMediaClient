@@ -7,7 +7,7 @@ export interface ChatInt {
   sender: number | string | null;
   image: File | null;
   file: File | null;
-  created_at: Date;
+  created_at: Date | string;
   club: number | string | null;
 }
 

@@ -58,16 +58,18 @@ const Index = ({ ws }) => {
         formData,
       );
 
-      console.log(res);
-
       if (res.status >= 200 && res.status < 300 && res.data.success) {
-        const msg: ChatInt = {
+        const msgObj: ChatInt = {
           message: currentMessage,
           sender: currUserId,
+          created_at: Date.now() + "",
+          club: clubState.selectedClubId,
+          file: null,
+          image: null,
         };
-
-        if (clubState?.chat === null) clubState?.setChat([msg]);
-        else clubState?.setChat((prev) => [...prev, msg]);
+        if (clubState.chat != null && clubState.chat?.length > 0) {
+          clubState.setChat((prev) => [...(prev ?? []), msgObj]);
+        } else clubState.setChat([msgObj]);
         setMessage("");
       }
     } catch (error) {

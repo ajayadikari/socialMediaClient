@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Message from "./message";
 import { ClubContext, ClubContextInt } from "@/context/club";
 import useAxiosInstance from "@/utils/axiosInstance";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 const Index = () => {
   const clubState = useContext<ClubContextInt | null>(ClubContext);
   const axiosInstance = useAxiosInstance();
+  const scrollToBottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -32,6 +33,13 @@ const Index = () => {
     };
     fetch();
   }, [clubState?.selectedClubId]);
+
+  useEffect(() => {
+    scrollToBottomRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [clubState?.chat]);
+
   return (
     <div className="bg-gray-50 h-full p-2">
       {clubState?.chat ? (
@@ -40,6 +48,7 @@ const Index = () => {
             clubState.chat?.map((message, i) => (
               <Message message={message} key={i}></Message>
             ))}
+          <div ref={scrollToBottomRef}></div>
         </>
       ) : (
         <p>do you guys use telepathy? no chat yet</p>
