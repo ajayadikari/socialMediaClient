@@ -7,7 +7,7 @@ import ChatAreaOptions from "./chatAreaOptions";
 const Index = ({ ws }) => {
   return (
     <div className="h-full w-full">
-      <div className="h-[55px] w-full bg-red-400 px-3 flex justify-between items-center shadow-sm rounded-sm border">
+      <div className="h-[55px] w-full bg-white px-3 flex justify-between items-center shadow-sm rounded-sm border">
         <h1 className="text-4xl">Discussion</h1>
         <ChatAreaOptions />
       </div>
