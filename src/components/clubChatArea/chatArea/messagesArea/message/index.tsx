@@ -11,11 +11,13 @@ const Index = ({ message }: { message: ChatInt }) => {
   }, [currUserId]);
   return (
     <div
-      className={`w-full flex ${currUserId == message.sender ? "justify-end" : "justify-start"} `}
+      className={`w-full flex ${currUserId == message.sender ? "justify-end" : "justify-start "}`}
     >
-      <div className="min-w-[200px] max-w-fit bg-white rounded p-1">
-        <p className="text-sm text-gray-400">name</p>
-        <p className="text-md">{message.message}</p>
+      <div className="min-w-[200px] max-w-[50%] rounded p-1 bg-gray-100 mb-[8px] overflow-x-auto break-words whitespace-normal">
+        {currUserId != message.sender && (
+          <p className={`text-[10px] text-gray-400 wrap`}>name</p>
+        )}
+        <p className="text-md pl-1">{message.message}</p>
         <p className="text-[10px] text-end text-red-500">
           {message.created_at + ""}
         </p>
