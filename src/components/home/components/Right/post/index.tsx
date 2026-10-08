@@ -1,6 +1,6 @@
 "use client";
 
-import Reac, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Index = ({
