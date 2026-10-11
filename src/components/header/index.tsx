@@ -19,7 +19,7 @@ export interface ProfileInt {
 const Index = () => {
   const [requestList, setRequestList] = useState<ProfileInt[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
-  const axiosInstance = useCreateAxiosInstance()
+  const axiosInstance = useCreateAxiosInstance();
   const SetFriendRequests = async () => {
     const res = await axiosInstance({
       method: "GET",
@@ -33,7 +33,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="h-14 flex flex-col justify-center px-1 z-1">
+    <div className="h-14 flex flex-col justify-center px-1 border-b-[2px]">
       <div className="self-end items-center relative">
         <Radio
           className="text-gray-500 p-[2px] bg-gray-100 rounded-full hover:text-gray-800"
@@ -46,7 +46,7 @@ const Index = () => {
           defaultValue="account"
           className={cn(
             "w-[400px] absolute z-3 top-6 right-2 shadow-xl p-2 rounded-sm bg-gray-50 border",
-            showNotifications ? "block" : "hidden"
+            showNotifications ? "block" : "hidden",
           )}
         >
           <TabsList className="gap-1">

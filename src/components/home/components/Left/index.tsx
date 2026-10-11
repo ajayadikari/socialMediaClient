@@ -26,10 +26,12 @@ const index = () => {
     },
   ];
   return (
-    <div className="grid grid-cols-1">
-      {items.map((item, i) => {
-        return <Item item={item} key={i} />;
-      })}
+    <div className=" border-r-[2px]">
+      <div className="grid grid-cols-1 h-fit]">
+        {items.map((item, i) => {
+          return <Item item={item} key={i} />;
+        })}
+      </div>
     </div>
   );
 };
