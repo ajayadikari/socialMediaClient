@@ -3,9 +3,9 @@ import Left from "@/components/home/components/Left";
 
 const layout = ({ children }) => {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-full">
       <Left />
-      <div>{children}</div>
+      <div className="w-[calc(100% - 300px)]">{children}</div>
     </div>
   );
 };

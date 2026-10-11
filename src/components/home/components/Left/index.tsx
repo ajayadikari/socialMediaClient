@@ -1,13 +1,24 @@
 import React from "react";
-import { BadgePlus, PenTool, Bookmark, ThumbsUp } from "lucide-react";
+import {
+  BadgePlus,
+  PenTool,
+  Bookmark,
+  ThumbsUp,
+  Newspaper,
+} from "lucide-react";
 import Item from "./Item";
 
 const index = () => {
   const items = [
     {
+      name: "Feed",
+      logo: Newspaper,
+      link: "/",
+    },
+    {
       name: "Create post",
       logo: BadgePlus,
-      link: "",
+      link: "create-post/",
     },
     {
       name: "Edit post",
